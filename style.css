@@ -89,7 +89,7 @@ footer{background:var(--night);color:var(--bone);opacity:.9;text-align:center;pa
 .about-sec h2{color:#1f3a2b}
 .about-sec .facts li{border-top:3px solid #e8932a;background:#fff;padding:12px 16px;border-radius:0 0 10px 10px;box-shadow:0 8px 22px rgba(60,40,10,.1)}
 .about-sec .facts strong{color:#1f3a2b}
-.about-sec figure{box-shadow:12px 12px 0 #e8932a;border-radius:10px}
+.about-sec figure{box-shadow:0 18px 40px rgba(60,40,10,.2);border-radius:14px}
 
 /* Menu: sand background, white cards */
 .menu-sec{color:var(--ink);background:linear-gradient(180deg,#f1e1c3,#f7ecd6)}
