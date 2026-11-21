@@ -134,6 +134,33 @@ footer{background:var(--night);color:var(--bone);opacity:.9;text-align:center;pa
 .visit-sec .lead a{color:inherit}
 .visit-sec .map{margin:0;display:flex}
 .visit-sec .map iframe{height:100%;min-height:440px}
+
+/* Reviews */
+.reviews-sec{color:var(--ink);background:#fffaf0}
+.reviews-sec h2{color:#1f3a2b}
+.rv-grid{display:grid;grid-template-columns:1.2fr .8fr;gap:36px;align-items:start}
+.rv-list{display:grid;gap:16px;margin-bottom:18px}
+.rv-card{background:#fff;border-radius:14px;padding:18px 22px;box-shadow:0 8px 24px rgba(60,40,10,.1);border-left:4px solid #e8932a}
+.rv-top{display:flex;align-items:center;gap:12px;flex-wrap:wrap;margin-bottom:6px}
+.rv-stars{color:#e8932a;letter-spacing:2px;font-size:1.1rem}
+.rv-card p{margin-bottom:6px;overflow-wrap:anywhere}
+.rv-card small{opacity:.6}
+.rv-empty{opacity:.75;padding:10px 0}
+.rv-google{font-weight:700;color:#1f3a2b;text-decoration:none}
+.rv-google:hover{text-decoration:underline}
+.rv-form{background:#1f3a2b;color:#fbf1de;border-radius:18px;padding:26px;box-shadow:0 16px 36px rgba(31,58,43,.3)}
+.rv-form[hidden]{display:none}
+.rv-form h3{font-family:'Fraunces',serif;font-size:1.4rem;font-weight:500;margin-bottom:14px}
+.rv-form label,.rv-rate span{display:block;font-size:.9rem;margin-bottom:12px}
+.rv-form input,.rv-form textarea{display:block;width:100%;margin-top:6px;padding:11px 14px;border:0;border-radius:10px;font:inherit;color:#1c1a15;background:#fbf1de}
+.rv-pick{display:flex;gap:4px;margin:6px 0 14px}
+.rv-pick button{background:none;border:0;font-size:2rem;line-height:1;cursor:pointer;color:rgba(251,241,222,.35);padding:0 2px;transition:.15s}
+.rv-pick button.on{color:#f5b95c}
+.rv-send{width:100%;padding:13px;border:0;border-radius:40px;background:#f5b95c;color:#2b1707;font:inherit;font-weight:700;cursor:pointer;transition:.2s}
+.rv-send:hover{background:#e8932a}.rv-send:disabled{opacity:.6;cursor:wait}
+.rv-msg{margin-top:12px;font-size:.9rem;color:#ffd2a0;min-height:1.2em}
+.rv-msg.ok{color:#b8f0c8}
+.rv-trap{position:absolute!important;left:-9999px!important;width:1px!important;height:1px!important}
 @media(max-width:760px){
  html{scroll-padding-top:96px}
  .burger{display:none}
@@ -144,6 +171,7 @@ footer{background:var(--night);color:var(--bone);opacity:.9;text-align:center;pa
  .about{grid-template-columns:1fr;gap:32px}
  .map iframe{height:300px}
  .visit-grid{grid-template-columns:1fr}
+ .rv-grid{grid-template-columns:1fr}
  .visit-card{padding:24px}
  .visit-sec .map iframe{min-height:300px}
 }
