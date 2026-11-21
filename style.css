@@ -161,6 +161,14 @@ footer{background:var(--night);color:var(--bone);opacity:.9;text-align:center;pa
 .rv-msg{margin-top:12px;font-size:.9rem;color:#ffd2a0;min-height:1.2em}
 .rv-msg.ok{color:#b8f0c8}
 .rv-trap{position:absolute!important;left:-9999px!important;width:1px!important;height:1px!important}
+.rv-note{font-size:.9rem;opacity:.9;margin-bottom:14px}
+.rv-gbtn{display:flex;align-items:center;justify-content:center;gap:10px;width:100%;padding:13px;border:0;border-radius:40px;background:#fff;color:#1c1a15;font:inherit;font-weight:700;cursor:pointer;transition:.2s}
+.rv-gbtn:hover{background:#fbf1de}
+.rv-gbtn .g{font-family:Arial,sans-serif;font-weight:700;font-size:1.2rem;color:#4285f4}
+.rv-user{margin-bottom:14px;font-size:.95rem}
+.rv-link{background:none;border:0;color:#f5b95c;font:inherit;font-size:.85rem;text-decoration:underline;cursor:pointer;padding:0 0 0 6px}
+.rv-del{display:block;margin:12px auto 0;background:none;border:0;color:#ffd2a0;font:inherit;font-size:.85rem;text-decoration:underline;cursor:pointer}
+.rv-del[hidden]{display:none}
 @media(max-width:760px){
  html{scroll-padding-top:96px}
  .burger{display:none}

@@ -1,28 +1,22 @@
-// Guest reviews: shows all reviews and lets visitors write one (live instantly).
-// Only change the two lines marked PASTE below (apiKey and appId from Firebase).
+// Guest reviews with Google sign-in: the reviewer's Google name is shown,
+// and each Google account can leave one review (it can be edited or deleted by them).
 (function () {
-  const FIREBASE_CONFIG = {
-    apiKey: "AIzaSyAwLD2S3osrR1OWvJgKoJF7PXlM8XXZjxM",
-    authDomain: 'indoor-restaurant.firebaseapp.com',
-    projectId: 'indoor-restaurant',
-    appId: "1:612302827921:web:1a9c39fd1118049514aa30"
-  };
-
+  const cfg = window.FIREBASE_CONFIG || {};
   const q = s => document.querySelector(s);
   const list = q('#rv-list'), form = q('#rv-form'), summary = q('#rv-summary');
   if (!list) return;
 
   const stars = n => '★'.repeat(n) + '☆'.repeat(5 - n);
-  const configured = window.firebase && FIREBASE_CONFIG.projectId &&
-    FIREBASE_CONFIG.apiKey && !FIREBASE_CONFIG.apiKey.startsWith('PASTE') &&
-    FIREBASE_CONFIG.appId && !FIREBASE_CONFIG.appId.startsWith('PASTE');
+  const ok = v => v && !String(v).startsWith('PASTE');
+  const configured = window.firebase && ok(cfg.apiKey) && cfg.projectId && ok(cfg.appId);
 
   if (!configured) {
     list.innerHTML = '<p class="rv-empty">Guest reviews are coming soon. You can read our reviews on Google in the meantime.</p>';
     return;
   }
 
-  firebase.initializeApp(FIREBASE_CONFIG);
+  firebase.initializeApp(cfg);
+  const auth = firebase.auth();
   const col = firebase.firestore().collection('reviews');
   form.hidden = false;
 
@@ -62,8 +56,12 @@
   col.orderBy('createdAt', 'desc').limit(50).onSnapshot(s => draw(s.docs),
     () => { list.innerHTML = '<p class="rv-empty">Reviews could not be loaded right now.</p>'; });
 
+  // ---- elements
+  const authBox = q('#rv-auth'), fields = q('#rv-fields'), msg = q('#rv-msg');
+  const sendBtn = q('#rv-send'), delBtn = q('#rv-del');
+  let rating = 0, user = null;
+
   // ---- star picker
-  let rating = 0;
   const btns = [...document.querySelectorAll('.rv-pick button')];
   const paint = n => btns.forEach((b, i) => b.classList.toggle('on', i < n));
   btns.forEach((b, i) => {
@@ -72,33 +70,92 @@
     b.onmouseleave = () => paint(rating);
   });
 
-  // ---- send a new review (shows on the site straight away)
-  const msg = q('#rv-msg');
+  // ---- Google sign in / out
+  const say = (t, good) => { msg.className = 'rv-msg' + (good ? ' ok' : ''); msg.textContent = t; };
+  const signIn = async () => {
+    say('');
+    const provider = new firebase.auth.GoogleAuthProvider();
+    try {
+      await auth.signInWithPopup(provider);
+    } catch (e) {
+      if (e.code === 'auth/popup-blocked') return auth.signInWithRedirect(provider);
+      if (e.code === 'auth/popup-closed-by-user' || e.code === 'auth/cancelled-popup-request') return;
+      say('Sign-in did not work. If you opened this page inside another app, please open it in Chrome or Safari.');
+    }
+  };
+
+  const showSignedOut = () => {
+    authBox.textContent = '';
+    const p = document.createElement('p');
+    p.className = 'rv-note';
+    p.textContent = 'Sign in with your Google account to write a review. Your Google name will be shown, and each account can leave one review.';
+    const b = document.createElement('button');
+    b.type = 'button'; b.className = 'rv-gbtn';
+    b.innerHTML = '<span class="g">G</span> Sign in with Google';
+    b.onclick = signIn;
+    authBox.append(p, b);
+    fields.hidden = true;
+  };
+
+  const showSignedIn = async u => {
+    authBox.textContent = '';
+    const p = document.createElement('p');
+    p.className = 'rv-user';
+    const strong = document.createElement('strong');
+    strong.textContent = u.displayName || 'your Google account';
+    const out = document.createElement('button');
+    out.type = 'button'; out.className = 'rv-link'; out.textContent = 'Not you? Sign out';
+    out.onclick = () => auth.signOut();
+    p.append('Writing as ', strong, ' ', out);
+    authBox.appendChild(p);
+    fields.hidden = false;
+    // load this person's existing review, if any
+    rating = 0; paint(0); form.comment.value = '';
+    sendBtn.textContent = 'Send review'; delBtn.hidden = true;
+    try {
+      const d = await col.doc(u.uid).get();
+      if (d.exists) {
+        const r = d.data();
+        rating = r.rating; paint(rating); form.comment.value = r.comment;
+        sendBtn.textContent = 'Update my review'; delBtn.hidden = false;
+      }
+    } catch (_) {}
+  };
+
+  auth.onAuthStateChanged(u => {
+    user = u; say('');
+    if (u) showSignedIn(u); else showSignedOut();
+  });
+
+  // ---- save the review (one per Google account)
   form.addEventListener('submit', async e => {
     e.preventDefault();
-    msg.className = 'rv-msg';
-    const name = form.name.value.trim(), comment = form.comment.value.trim();
-    if (form.website.value) return; // spam trap
-    if (!rating) { msg.textContent = 'Please choose a star rating.'; return; }
-    if (!name || comment.length < 5) { msg.textContent = 'Please add your name and a short comment.'; return; }
+    if (!user) return;
+    const comment = form.comment.value.trim();
+    if (!user.displayName) { say('Your Google account has no name. Please add a name to your Google profile first.'); return; }
+    if (!rating) { say('Please choose a star rating.'); return; }
+    if (comment.length < 5) { say('Please write a short comment.'); return; }
+    sendBtn.disabled = true;
     try {
-      const last = +localStorage.getItem('rvLast') || 0;
-      if (Date.now() - last < 300000) { msg.textContent = 'You already sent a review. Please try again in a few minutes.'; return; }
-    } catch (_) {}
-    const btn = form.querySelector('button[type=submit]');
-    btn.disabled = true;
-    try {
-      await col.add({
-        name, rating, comment,
+      await col.doc(user.uid).set({
+        name: user.displayName, rating, comment,
         createdAt: firebase.firestore.FieldValue.serverTimestamp()
       });
-      try { localStorage.setItem('rvLast', Date.now()); } catch (_) {}
-      form.reset(); rating = 0; paint(0);
-      msg.className = 'rv-msg ok';
-      msg.textContent = 'Thank you! Your review is now on the website.';
+      sendBtn.textContent = 'Update my review'; delBtn.hidden = false;
+      say('Thank you! Your review is on the website.', true);
     } catch (err) {
-      msg.textContent = 'Sorry, we could not send your review. Please try again.';
+      say('Sorry, we could not save your review. Please try again.');
     }
-    btn.disabled = false;
+    sendBtn.disabled = false;
+  });
+
+  delBtn.addEventListener('click', async () => {
+    if (!user || !confirm('Delete your review?')) return;
+    try {
+      await col.doc(user.uid).delete();
+      rating = 0; paint(0); form.comment.value = '';
+      sendBtn.textContent = 'Send review'; delBtn.hidden = true;
+      say('Your review was deleted.', true);
+    } catch (err) { say('Could not delete your review. Please try again.'); }
   });
 })();
