@@ -56,3 +56,19 @@ for (let i = 0; i < 26; i++) {
   fl.appendChild(f);
 }
 $('.hero-bg').after(fl);
+
+// hide any photo that is missing, so no broken-image boxes show
+const dropBroken = img => {
+  const fig = img.closest('figure');
+  if (fig) fig.remove();
+  const g = $('.gallery');
+  if (g && !g.querySelector('figure')) {
+    $('#garden').style.display = 'none';
+    const link = document.querySelector('#links a[href="#garden"]');
+    if (link) link.style.display = 'none';
+  }
+};
+document.querySelectorAll('figure img').forEach(img => {
+  if (img.complete && img.naturalWidth === 0) dropBroken(img);
+  else img.addEventListener('error', () => dropBroken(img));
+});
