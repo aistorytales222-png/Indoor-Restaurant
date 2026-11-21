@@ -1,10 +1,8 @@
 const $ = s => document.querySelector(s);
 $('#yr').textContent = new Date().getFullYear();
 
-// navbar: transparent on hero, solid after scroll; mobile toggle
+// navbar: transparent on hero, solid after scroll
 addEventListener('scroll', () => $('#nav').classList.toggle('solid', scrollY > 60));
-$('#burger').onclick = () => $('#links').classList.toggle('open');
-$('#links').onclick = () => $('#links').classList.remove('open');
 
 // scroll reveal
 const io = new IntersectionObserver(es => es.forEach(e => {
