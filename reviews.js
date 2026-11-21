@@ -1,11 +1,10 @@
-// Guest reviews: shows approved reviews and lets visitors write one.
-// 1) Create a free Firebase project + Firestore database (see setup steps).
-// 2) Paste your project's web config below.
+// Guest reviews: shows all reviews and lets visitors write one (live instantly).
+// Only change the two lines marked PASTE below (apiKey and appId from Firebase).
 (function () {
   const FIREBASE_CONFIG = {
     apiKey: "AIzaSyAwLD2S3osrR1OWvJgKoJF7PXlM8XXZjxM",
-    authDomain: "indoor-restaurant.firebaseapp.com",
-    projectId: "indoor-restaurant",
+    authDomain: 'indoor-restaurant.firebaseapp.com',
+    projectId: 'indoor-restaurant',
     appId: "1:612302827921:web:1a9c39fd1118049514aa30"
   };
 
@@ -14,7 +13,9 @@
   if (!list) return;
 
   const stars = n => '★'.repeat(n) + '☆'.repeat(5 - n);
-  const configured = FIREBASE_CONFIG.projectId && window.firebase;
+  const configured = window.firebase && FIREBASE_CONFIG.projectId &&
+    FIREBASE_CONFIG.apiKey && !FIREBASE_CONFIG.apiKey.startsWith('PASTE') &&
+    FIREBASE_CONFIG.appId && !FIREBASE_CONFIG.appId.startsWith('PASTE');
 
   if (!configured) {
     list.innerHTML = '<p class="rv-empty">Guest reviews are coming soon. You can read our reviews on Google in the meantime.</p>';
@@ -25,10 +26,10 @@
   const col = firebase.firestore().collection('reviews');
   form.hidden = false;
 
-  // ---- show approved reviews
+  // ---- show reviews
   const draw = docs => {
     const items = docs.map(d => d.data())
-      .sort((a, b) => (b.createdAt?.seconds || 0) - (a.createdAt?.seconds || 0));
+      .sort((a, b) => (b.createdAt?.seconds ?? 9e12) - (a.createdAt?.seconds ?? 9e12));
     list.textContent = '';
     if (!items.length) {
       list.innerHTML = '<p class="rv-empty">No reviews yet. Be the first to write one!</p>';
@@ -58,7 +59,7 @@
       list.appendChild(card);
     });
   };
-  col.where('approved', '==', true).limit(50).onSnapshot(s => draw(s.docs),
+  col.orderBy('createdAt', 'desc').limit(50).onSnapshot(s => draw(s.docs),
     () => { list.innerHTML = '<p class="rv-empty">Reviews could not be loaded right now.</p>'; });
 
   // ---- star picker
@@ -71,7 +72,7 @@
     b.onmouseleave = () => paint(rating);
   });
 
-  // ---- send a new review (saved as "waiting for approval")
+  // ---- send a new review (shows on the site straight away)
   const msg = q('#rv-msg');
   form.addEventListener('submit', async e => {
     e.preventDefault();
@@ -89,13 +90,12 @@
     try {
       await col.add({
         name, rating, comment,
-        approved: false,
         createdAt: firebase.firestore.FieldValue.serverTimestamp()
       });
       try { localStorage.setItem('rvLast', Date.now()); } catch (_) {}
       form.reset(); rating = 0; paint(0);
       msg.className = 'rv-msg ok';
-      msg.textContent = 'Thank you! Your review will appear after we approve it.';
+      msg.textContent = 'Thank you! Your review is now on the website.';
     } catch (err) {
       msg.textContent = 'Sorry, we could not send your review. Please try again.';
     }
