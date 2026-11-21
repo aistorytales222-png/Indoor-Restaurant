@@ -109,6 +109,31 @@ footer{background:var(--night);color:var(--bone);opacity:.9;text-align:center;pa
 .visit-sec .btn.gold:hover{background:#e8932a;border-color:#e8932a}
 .visit-sec .btn.line{color:#f5b95c;border-color:#f5b95c}
 .visit-sec .btn.line:hover{background:#f5b95c;color:#2b1707}
+
+/* Find us layout */
+.visit-grid{display:grid;grid-template-columns:.9fr 1.3fr;gap:32px;align-items:stretch}
+.visit-card{background:#fbf1de;color:var(--ink);border-radius:20px;padding:32px;display:flex;flex-direction:column;justify-content:space-between;gap:28px;box-shadow:0 18px 40px rgba(0,0,0,.3)}
+.info-row{display:flex;gap:16px;align-items:center;margin-bottom:20px}
+.info-row:last-child{margin-bottom:0}
+.info-row .ico{flex:none;width:46px;height:46px;border-radius:50%;background:#f5b95c;display:grid;place-items:center}
+.info-row svg{width:24px;height:24px;fill:#2b1707}
+.info-row h3{font-family:'Fraunces',serif;font-size:1.1rem;font-weight:700;color:#1f3a2b}
+.info-row p{font-size:1rem}
+.cta{display:flex;flex-direction:column;gap:12px}
+.cta-btn{display:flex;align-items:center;gap:16px;padding:15px 22px;border-radius:16px;text-decoration:none;font-weight:700;font-size:1.2rem;transition:.25s}
+.cta-btn svg{width:30px;height:30px;flex:none}
+.cta-btn small{display:block;font-size:.78rem;font-weight:500;opacity:.85;letter-spacing:.02em}
+.cta-btn.call{background:#1f3a2b;color:#fbf1de}
+.cta-btn.call svg{fill:#f5b95c}
+.cta-btn.call:hover{background:#2c5a3f;transform:translateY(-2px)}
+.cta-btn.wa{background:#25d366;color:#04230f}
+.cta-btn.wa svg{fill:#04230f}
+.cta-btn.wa:hover{background:#3be07a;transform:translateY(-2px)}
+.cta-link{text-align:center;font-weight:700;color:#1f3a2b;text-decoration:none;padding:6px}
+.cta-link:hover{text-decoration:underline}
+.visit-sec .lead a{color:inherit}
+.visit-sec .map{margin:0;display:flex}
+.visit-sec .map iframe{height:100%;min-height:440px}
 @media(max-width:760px){
  html{scroll-padding-top:96px}
  .burger{display:none}
@@ -118,5 +143,8 @@ footer{background:var(--night);color:var(--bone);opacity:.9;text-align:center;pa
  .gallery{grid-template-columns:1fr}.gallery .big{grid-column:auto;grid-row:auto}
  .about{grid-template-columns:1fr;gap:32px}
  .map iframe{height:300px}
+ .visit-grid{grid-template-columns:1fr}
+ .visit-card{padding:24px}
+ .visit-sec .map iframe{min-height:300px}
 }
 @media(prefers-reduced-motion:reduce){*{animation:none!important;transition:none!important}.hero h1 span,.hero p,.row,.reveal{opacity:1;transform:none}}
