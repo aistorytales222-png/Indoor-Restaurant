@@ -80,7 +80,10 @@
     } catch (e) {
       if (e.code === 'auth/popup-blocked') return auth.signInWithRedirect(provider);
       if (e.code === 'auth/popup-closed-by-user' || e.code === 'auth/cancelled-popup-request') return;
-      say('Sign-in did not work. If you opened this page inside another app, please open it in Chrome or Safari.');
+      const local = location.protocol === 'file:';
+      say(local
+        ? 'Sign-in cannot run from a file on your computer. Open the live website link to test it.'
+        : 'Sign-in did not work (' + (e.code || 'error') + '). If you opened this page inside another app, please open it in Chrome or Safari.');
     }
   };
 
@@ -88,7 +91,7 @@
     authBox.textContent = '';
     const p = document.createElement('p');
     p.className = 'rv-note';
-    p.textContent = 'Sign in with your Google account to write a review. Your Google name will be shown, and each account can leave one review.';
+    p.textContent = 'Sign in to review';
     const b = document.createElement('button');
     b.type = 'button'; b.className = 'rv-gbtn';
     b.innerHTML = '<span class="g">G</span> Sign in with Google';
