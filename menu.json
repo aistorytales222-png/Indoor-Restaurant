@@ -1,0 +1,124 @@
+{ "currency": "Rs", "categories": [
+  { "id": "signature", "name": "Signature dishes", "type": "cards", "intro": "What most guests order first.", "items": [
+    {"name": "G.O.A.T.E.D Duck Chhoila", "price": 600, "badge": "House signature", "desc": "Local duck chhoila, the dish we are known for.", "img": "duck.jpg"},
+    {"name": "Fish Gravy", "price": 550, "badge": "Fresh local fish", "desc": "Local fish cooked in a homestyle gravy.", "img": "fish.jpg"},
+    {"name": "Chicken Khana Set", "price": 480, "badge": "Nepali set", "desc": "Basmati rice, saag, potato curry, silauto chutney, pickle, salad and daal.", "img": "khana.jpg"},
+    {"name": "Mutton Bhutuwa", "price": 600, "badge": "Nepali style", "desc": "Dry-fried mutton, cooked Nepali style.", "img": "mutton.jpg"},
+    {"name": "Chicken Fried", "price": 400, "badge": "", "desc": "Crisp fried chicken, served with potatoes and salad.", "img": "chicken.jpg"},
+    {"name": "Chicken Mo:mo Steam", "price": 200, "badge": "", "desc": "Steamed momo with a warm dipping sauce.", "img": "momo.jpg"}
+  ]},
+  { "id": "nonveg", "name": "Non-veg", "type": "list", "intro": "Made with local meat and cooked fresh, with no packaged masalas.", "items": [
+    {"name": "G.O.A.T.E.D Duck Chhoila", "price": 600, "note": ""},
+    {"name": "Duck Gravy", "price": 600, "note": ""},
+    {"name": "Duck Bhutuwa", "price": 600, "note": ""},
+    {"name": "Local Chicken Gravy", "price": 600, "note": ""},
+    {"name": "Local Chicken Bhutuwa", "price": 600, "note": ""},
+    {"name": "Mutton Gravy", "price": 600, "note": "Khasi / Boka"},
+    {"name": "Mutton Bhutuwa", "price": 600, "note": "Nepali style"},
+    {"name": "Fish Fried", "price": 550, "note": ""},
+    {"name": "Fish Gravy", "price": 550, "note": ""},
+    {"name": "Jhinge Machha", "price": 650, "note": "Prawn, seasonal"},
+    {"name": "Jhinge-Goyera Mix", "price": 650, "note": "Seasonal"},
+    {"name": "Chicken Gravy", "price": 400, "note": ""},
+    {"name": "Chicken Fried", "price": 400, "note": ""},
+    {"name": "Chicken Chilly", "price": 450, "note": ""},
+    {"name": "Chicken Khaja Set", "price": 400, "note": ""},
+    {"name": "Ghungi", "price": 200, "note": "Traditional Tharu snail curry"}
+  ]},
+  { "id": "veg", "name": "Vegetarian", "type": "list", "intro": "", "items": [
+    {"name": "Indoor Special Aalu", "price": 200, "note": ""},
+    {"name": "Aalu Sadheko", "price": 200, "note": ""},
+    {"name": "Mushroom Chhoila", "price": 350, "note": ""},
+    {"name": "Mushroom Pakauda", "price": 350, "note": ""},
+    {"name": "Paneer Pakauda", "price": 400, "note": ""},
+    {"name": "Paneer Chilly", "price": 430, "note": ""},
+    {"name": "Peanuts Sadheko", "price": 200, "note": ""},
+    {"name": "Bhatmas Sadheko", "price": 200, "note": ""},
+    {"name": "Mix-Wai Wai Sadheko", "price": 200, "note": ""},
+    {"name": "Chips Chilly", "price": 300, "note": ""},
+    {"name": "Finger Chips", "price": 250, "note": ""},
+    {"name": "Veg Khaja Set", "price": 260, "note": ""}
+  ]},
+  { "id": "khana", "name": "Khana sets", "type": "list", "intro": "Long-grain basmati rice, seasonal greens (saag), potato curry, stone-ground silauto chutney, homemade pickle, fresh salad and daal. Made to order, so allow 15 to 20 minutes.", "items": [
+    {"name": "Veg Khana Set", "price": 330, "note": ""},
+    {"name": "Chicken Khana Set", "price": 480, "note": ""},
+    {"name": "Fish Khana Set", "price": 580, "note": ""},
+    {"name": "Duck Khana Set", "price": 600, "note": ""},
+    {"name": "Mutton Khana Set", "price": 600, "note": ""},
+    {"name": "Local Chicken Khana Set", "price": 600, "note": ""}
+  ]},
+  { "id": "momo", "name": "Momo & sausage", "type": "list", "intro": "", "items": [
+    {"name": "Veg Mo:mo Steam", "price": 150, "note": ""},
+    {"name": "Veg Mo:mo Fried", "price": 200, "note": ""},
+    {"name": "Veg C' Mo:mo", "price": 250, "note": ""},
+    {"name": "Chicken Mo:mo Steam", "price": 200, "note": ""},
+    {"name": "Chicken Mo:mo Fried", "price": 250, "note": ""},
+    {"name": "Chicken C' Mo:mo", "price": 300, "note": ""},
+    {"name": "Chicken Sausage", "price": 160, "note": "2 pcs"},
+    {"name": "Chicken Sausage", "price": 320, "note": "6 pcs"}
+  ]},
+  { "id": "rice", "name": "Rice & salad", "type": "list", "intro": "", "items": [
+    {"name": "Veg Fried Rice", "price": 230, "note": ""},
+    {"name": "Egg Fried Rice", "price": 290, "note": ""},
+    {"name": "Chicken Fried Rice", "price": 350, "note": ""},
+    {"name": "Mixed Fried Rice", "price": 400, "note": ""},
+    {"name": "Green Salad", "price": 300, "note": ""},
+    {"name": "Fruits Salad", "price": 450, "note": ""},
+    {"name": "Mixed Salad", "price": 500, "note": ""}
+  ]},
+  { "id": "breakfast", "name": "Breakfast & eggs", "type": "list", "intro": "", "items": [
+    {"name": "Breakfast Set", "price": 380, "note": "Toast with butter and jam, eggs your way, potatoes, banana, tea or coffee"},
+    {"name": "Boiled Egg", "price": 100, "note": ""},
+    {"name": "Plain Omelette", "price": 100, "note": ""},
+    {"name": "Poached Egg", "price": 100, "note": ""},
+    {"name": "Masala Omelette", "price": 150, "note": ""},
+    {"name": "Chicken Breast", "price": 300, "note": "Boiled / steamed"}
+  ]},
+  { "id": "tea", "name": "Tea & coffee", "type": "list", "intro": "", "items": [
+    {"name": "Black Tea", "price": 35, "note": ""},
+    {"name": "Ginger Tea", "price": 40, "note": ""},
+    {"name": "Lemon Tea", "price": 40, "note": ""},
+    {"name": "Hot Lemon with Honey", "price": 60, "note": ""},
+    {"name": "Ginger Lemon with Honey", "price": 90, "note": ""},
+    {"name": "Green Tea", "price": 50, "note": ""},
+    {"name": "Milk Tea", "price": 50, "note": ""},
+    {"name": "Special Masala Tea", "price": 80, "note": ""},
+    {"name": "Black Coffee", "price": 80, "note": ""}
+  ]},
+  { "id": "soft", "name": "Cold drinks", "type": "list", "intro": "", "items": [
+    {"name": "Mineral Water", "price": 30, "note": ""},
+    {"name": "Coke, Fanta, Sprite", "price": 100, "note": ""},
+    {"name": "Fresh Lemon Soda", "price": 100, "note": ""},
+    {"name": "Masala Sprite", "price": 100, "note": ""},
+    {"name": "Plain Lassi", "price": 120, "note": ""},
+    {"name": "Fresh Banana Lassi", "price": 200, "note": ""},
+    {"name": "Red Bull", "price": 200, "note": "Yellow"},
+    {"name": "Red Bull", "price": 300, "note": "Blue"},
+    {"name": "Coke, Fanta, Sprite", "price": 350, "note": "1.5 L"},
+    {"name": "Real Juice", "price": 380, "note": "1 L"}
+  ]},
+  { "id": "bulk", "name": "Group orders", "type": "list", "sizeLabels": ["Quarter", "Half", "Full"], "intro": "Cooking for a group? Order by quantity. Meat by the kilo and ghungi by the plate.", "items": [
+    {"name": "Local Duck", "sizes": [1100, 2000, 4000], "note": "Chhoila / curry gravy"},
+    {"name": "Local Chicken", "sizes": [1000, 1900, 3500], "note": ""},
+    {"name": "Mutton", "price": 2200, "note": "Khasi / Boka, per kg"},
+    {"name": "Local Fish", "price": 2000, "note": "Per kg"},
+    {"name": "Farm-Fresh Chicken BBQ", "price": 1400, "note": "Per kg"},
+    {"name": "Traditional Ghungi", "price": 200, "note": "Per plate"},
+    {"name": "Jhinge-Goyera Mix", "price": 650, "note": "Seasonal, per plate"},
+    {"name": "Jhinge Machha", "price": 650, "note": "Prawn, seasonal, per plate"}
+  ]},
+  { "id": "bar", "name": "Bar", "type": "list", "sizeLabels": ["Quarter", "Half", "Full"], "intro": "", "items": [
+    {"name": "8848 Vodka", "sizes": [850, 1700, 3400], "note": ""},
+    {"name": "Yeti Vodka", "sizes": [850, 1700, 3400], "note": ""},
+    {"name": "Khukuri Rum", "sizes": [850, 1700, 3400], "note": ""},
+    {"name": "Signature", "sizes": [1000, 1900, 3700], "note": "Green"},
+    {"name": "Signature", "sizes": [1050, 2100, 4000], "note": "Red"},
+    {"name": "Gurkha's & Guns", "sizes": [1050, 2000, 4000], "note": ""},
+    {"name": "Old Durbar", "sizes": [1050, 2100, 4000], "note": "Red"},
+    {"name": "Old Durbar", "sizes": [1300, 2600, 5000], "note": "Black"},
+    {"name": "Gorkha Strong", "price": 530, "note": "Beer"},
+    {"name": "Barah Singhe", "price": 550, "note": "Pilsner beer"},
+    {"name": "Tuborg", "price": 620, "note": "Beer"},
+    {"name": "Carlsberg", "price": 720, "note": "Beer"}
+  ]}
+]}
