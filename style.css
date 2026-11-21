@@ -169,6 +169,8 @@ footer{background:var(--night);color:var(--bone);opacity:.9;text-align:center;pa
 .rv-link{background:none;border:0;color:#f5b95c;font:inherit;font-size:.85rem;text-decoration:underline;cursor:pointer;padding:0 0 0 6px}
 .rv-del{display:block;margin:12px auto 0;background:none;border:0;color:#ffd2a0;font:inherit;font-size:.85rem;text-decoration:underline;cursor:pointer}
 .rv-del[hidden]{display:none}
+.rv-admin-del{margin-top:10px;background:none;border:1px solid #b9500a;color:#b9500a;border-radius:20px;padding:4px 14px;font:inherit;font-size:.8rem;cursor:pointer}
+.rv-admin-del:hover{background:#b9500a;color:#fff}
 @media(max-width:760px){
  html{scroll-padding-top:96px}
  .burger{display:none}

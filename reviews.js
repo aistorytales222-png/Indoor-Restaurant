@@ -20,9 +20,13 @@
   const col = firebase.firestore().collection('reviews');
   form.hidden = false;
 
+  // owners who may delete any review (also must be listed in the Firestore rules)
+  const ADMINS = (window.ADMIN_EMAILS || ['pandeysangam805@gmail.com']).map(e => e.toLowerCase());
+  let lastDocs = [], loaded = false, isAdmin = false;
+
   // ---- show reviews
   const draw = docs => {
-    const items = docs.map(d => d.data())
+    const items = docs.map(d => ({ id: d.id, ...d.data() }))
       .sort((a, b) => (b.createdAt?.seconds ?? 9e12) - (a.createdAt?.seconds ?? 9e12));
     list.textContent = '';
     if (!items.length) {
@@ -50,10 +54,20 @@
       dt.textContent = r.createdAt?.toDate
         ? r.createdAt.toDate().toLocaleDateString('en-GB', { month: 'short', year: 'numeric' }) : '';
       card.append(top, p, dt);
+      if (isAdmin) {
+        const x = document.createElement('button');
+        x.type = 'button'; x.className = 'rv-admin-del'; x.textContent = 'Delete this review';
+        x.onclick = async () => {
+          if (!confirm('Delete this review for everyone?')) return;
+          try { await col.doc(r.id).delete(); }
+          catch (err) { say('Could not delete that review. Is your email listed as an admin in the rules?'); }
+        };
+        card.appendChild(x);
+      }
       list.appendChild(card);
     });
   };
-  col.orderBy('createdAt', 'desc').limit(50).onSnapshot(s => draw(s.docs),
+  col.orderBy('createdAt', 'desc').limit(50).onSnapshot(s => { lastDocs = s.docs; loaded = true; draw(lastDocs); },
     () => { list.innerHTML = '<p class="rv-empty">Reviews could not be loaded right now.</p>'; });
 
   // ---- elements
@@ -109,7 +123,7 @@
     const out = document.createElement('button');
     out.type = 'button'; out.className = 'rv-link'; out.textContent = 'Not you? Sign out';
     out.onclick = () => auth.signOut();
-    p.append('Writing as ', strong, ' ', out);
+    p.append('Writing as ', strong, isAdmin ? ' (admin)' : '', ' ', out);
     authBox.appendChild(p);
     fields.hidden = false;
     // load this person's existing review, if any
@@ -127,6 +141,8 @@
 
   auth.onAuthStateChanged(u => {
     user = u; say('');
+    isAdmin = !!(u && u.emailVerified && ADMINS.includes((u.email || '').toLowerCase()));
+    if (loaded) draw(lastDocs);
     if (u) showSignedIn(u); else showSignedOut();
   });
 
